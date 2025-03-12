@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Polinom", "Polinom.vcxproj", "{40D7AE6F-6F4C-44F2-A252-50CEB3A86F72}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Visual", "..\Visual\Visual.vcxproj", "{9B5F906E-92B9-4B25-A6F5-63907CF6C26F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "..\test\test.vcxproj", "{6078529C-5FC3-405F-A5C7-E0BFF4629EBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +25,27 @@ Global
 		{40D7AE6F-6F4C-44F2-A252-50CEB3A86F72}.Release|x64.Build.0 = Release|x64
 		{40D7AE6F-6F4C-44F2-A252-50CEB3A86F72}.Release|x86.ActiveCfg = Release|Win32
 		{40D7AE6F-6F4C-44F2-A252-50CEB3A86F72}.Release|x86.Build.0 = Release|Win32
+		{9B5F906E-92B9-4B25-A6F5-63907CF6C26F}.Debug|x64.ActiveCfg = Debug|x64
+		{9B5F906E-92B9-4B25-A6F5-63907CF6C26F}.Debug|x64.Build.0 = Debug|x64
+		{9B5F906E-92B9-4B25-A6F5-63907CF6C26F}.Debug|x86.ActiveCfg = Debug|Win32
+		{9B5F906E-92B9-4B25-A6F5-63907CF6C26F}.Debug|x86.Build.0 = Debug|Win32
+		{9B5F906E-92B9-4B25-A6F5-63907CF6C26F}.Release|x64.ActiveCfg = Release|x64
+		{9B5F906E-92B9-4B25-A6F5-63907CF6C26F}.Release|x64.Build.0 = Release|x64
+		{9B5F906E-92B9-4B25-A6F5-63907CF6C26F}.Release|x86.ActiveCfg = Release|Win32
+		{9B5F906E-92B9-4B25-A6F5-63907CF6C26F}.Release|x86.Build.0 = Release|Win32
+		{6078529C-5FC3-405F-A5C7-E0BFF4629EBA}.Debug|x64.ActiveCfg = Debug|x64
+		{6078529C-5FC3-405F-A5C7-E0BFF4629EBA}.Debug|x64.Build.0 = Debug|x64
+		{6078529C-5FC3-405F-A5C7-E0BFF4629EBA}.Debug|x86.ActiveCfg = Debug|Win32
+		{6078529C-5FC3-405F-A5C7-E0BFF4629EBA}.Debug|x86.Build.0 = Debug|Win32
+		{6078529C-5FC3-405F-A5C7-E0BFF4629EBA}.Release|x64.ActiveCfg = Release|x64
+		{6078529C-5FC3-405F-A5C7-E0BFF4629EBA}.Release|x64.Build.0 = Release|x64
+		{6078529C-5FC3-405F-A5C7-E0BFF4629EBA}.Release|x86.ActiveCfg = Release|Win32
+		{6078529C-5FC3-405F-A5C7-E0BFF4629EBA}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FAD3A4F8-3233-4DED-9CBE-D971C4DF759E}
 	EndGlobalSection
 EndGlobal

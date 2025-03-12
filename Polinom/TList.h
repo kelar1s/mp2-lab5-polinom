@@ -269,9 +269,9 @@ void TList<T>::InsCurr(T v)
     }
     else {
         TNode<T>* tmp = new TNode<T>(v);
-        tmp->pNext = pCurr;
-        pPrev->pNext = tmp;
-        pPrev = pPrev->pNext;
+        tmp->next = pCurr;
+        pPrev->next = tmp;
+        pPrev = pPrev->next;
         sz++;
     }
 }

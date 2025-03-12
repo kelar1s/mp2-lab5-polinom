@@ -9,61 +9,124 @@ Polinom::Polinom(Monom* p, int size)
     }
 }
 
-void Polinom::AddMonom(Monom m) //+=
+//void Polinom::AddMonom(Monom m) //+=
+//{
+//    if (isEmpty()) {
+//        InsLast(m);
+//    }
+//    else {
+//        if (m > pFirst->val) {
+//            InsFirst(m);
+//        }
+//        if (m < pLast->val) {
+//            InsLast(m);
+//        }
+//        for (Reset(); !IsEnd(); GoNext()) {
+//            if (m > GetCurr() || m == GetCurr()) {
+//                if (m > GetCurr()) {
+//                    TNode<Monom>* nw = new TNode<Monom>(m);
+//                    nw->next = pCurr;
+//                    pPrev->next = nw;
+//                }
+//                else {
+//                    double res = GetCurr().coeff + m.coeff;
+//                    if (res != 0) {
+//                        GetCurr().coeff = res;
+//                    }
+//                    else {
+//                        if (pCurr == pFirst) {
+//                            DelFirst();
+//                            pCurr = pCurr->next;
+//                        }
+//                        else {
+//                            TNode<Monom>* tmp = pCurr;
+//                            pPrev->next = pCurr->next;
+//                            pCurr = pCurr->next;
+//                            delete tmp;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
+
+void Polinom::AddMonom(Monom m)
 {
-    if (isEmpty()) {
-        InsLast(m);
-    }
+    if (isEmpty()) InsLast(m);
     else {
-        if (m > pFirst->val) {
+        if (pFirst->val < m) {
             InsFirst(m);
+            return;
         }
         if (m < pLast->val) {
             InsLast(m);
+            return;
         }
         for (Reset(); !IsEnd(); GoNext()) {
-            if (m > GetCurr() || m == GetCurr()) {
-                if (m > GetCurr()) {
-                    TNode<Monom>* nw = new TNode<Monom>(m);
-                    nw->next = pCurr;
-                    pPrev->next = nw;
-                }
+            if (GetCurr() < m) {
+                TNode<Monom>* add = new TNode<Monom>(m);
+                add->next = pCurr;
+                pPrev->next = add;
+                sz++;
+                return;
+            }
+            if (GetCurr() == m) {
+                double c = pCurr->val.coeff + m.coeff;
+                if (c != 0) pCurr->val.coeff = c;
                 else {
-                    double res = GetCurr().coeff + m.coeff;
-                    if (res != 0) {
-                        GetCurr().coeff = res;
+                    if (pCurr == pFirst) DelFirst();
+                    else if (pCurr == pLast) {
+                        pPrev->next = nullptr;
+                        pLast = pPrev;
+                        sz--;
+                        delete pCurr;
                     }
                     else {
-                        if (pCurr == pFirst) {
-                            DelFirst();
-                            pCurr = pCurr->next;
-                        }
-                        else {
-                            TNode<Monom>* tmp = pCurr;
-                            pPrev->next = pCurr->next;
-                            pCurr = pCurr->next;
-                            delete tmp;
-                        }
+                        TNode<Monom>* tmp = pCurr;
+                        pPrev->next = pCurr->next;
+                        sz--;
+                        delete tmp;
                     }
                 }
+                return;
             }
         }
     }
 }
 
-bool Polinom::operator==(const Polinom& p) const
-{
-    if (this == &p) return true;
-    if (sz != p.sz) return false;
+//bool Polinom::operator==(const Polinom& p) const
+//{
+//    if (this == &p) return true;
+//    if (sz != p.sz) return false;
+//    TNode<Monom>* tmp1 = pFirst;
+//    TNode<Monom>* tmp2 = p.pFirst;
+//    for (int i = 0; i < sz; i++) {
+//        if ((tmp1->val != tmp2->val) || (tmp1->val.coeff != tmp2->val.coeff))
+//            return false;
+//        tmp1 = tmp1->next;
+//        tmp2 = tmp2->next;
+//    }
+//    return true;
+//}
+
+bool Polinom::operator==(const Polinom& p) const {
+    if (this == &p) return true; // Если это один и тот же объект
+    if (sz != p.sz) return false; // Если размеры разные, списки не равны
+
     TNode<Monom>* tmp1 = pFirst;
     TNode<Monom>* tmp2 = p.pFirst;
-    for (int i = 0; i < sz; i++) {
-        if ((tmp1->val != tmp2->val) || (tmp1->val.coeff != tmp2->val.coeff))
+
+    while (tmp1 != nullptr && tmp2 != nullptr) {
+        if (tmp1->val != tmp2->val) { // Используем оператор != для Monom
             return false;
+        }
         tmp1 = tmp1->next;
         tmp2 = tmp2->next;
     }
-    return true;
+
+    // Если один из списков закончился раньше другого
+    return (tmp1 == nullptr && tmp2 == nullptr);
 }
 
 Polinom& Polinom::operator=(const Polinom& p)
