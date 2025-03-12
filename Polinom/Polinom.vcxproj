@@ -133,7 +133,6 @@
     <ClInclude Include="TList.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="example.cpp" />
     <ClCompile Include="Monom.cpp" />
     <ClCompile Include="Polinom.cpp" />
   </ItemGroup>

@@ -26,79 +26,120 @@ void Visual::Run() {
         int number1, number2;
         switch (key) {
         case '1': // Сложение полиномов
-            cin >> number1 >> number2;
-            if (number1 >= polinoms.size() || number2 >= polinoms.size()) {
-                Update("what?");
+            try {
+                cout << "\033[33m" << "Enter the numbers of polinoms: " << "\033[0m";
+                cin >> number1;
+                cin >> number2;
+
+                if (number1 >= polinoms.size() || number2 >= polinoms.size()) {
+                    Update("Invalid polinoms numbers.");
+                    break;
+                }
+
+                res = polinoms[number1] + polinoms[number2];
+                polinoms.push_back(res);
+                polinom_count++;
+                Update();
             }
-            else {
-                try {
-                    res = polinoms[number1] + polinoms[number2];
-                    polinoms.push_back(res);
-                    polinom_count++;
-                    Update();
-                }
-                catch (...) {
-                    Update("what?");
-                }
+            catch (...) {
+                Update("Invalid input.");
             }
             break;
 
         case '2': // Вычитание полиномов
-            cin >> number1 >> number2;
-            if (number1 >= polinoms.size() || number2 >= polinoms.size()) {
-                Update("what?");
+            try {
+                cout << "\033[33m" << "Enter the numbers of polinoms: " << "\033[0m";
+                cin >> number1;
+                cin >> number2;
+
+                if (number1 >= polinoms.size() || number2 >= polinoms.size()) {
+                    Update("Invalid polinoms numbers.");
+                    break;
+                }
+
+                res = polinoms[number1] - polinoms[number2];
+                polinoms.push_back(res);
+                polinom_count++;
+                Update();
             }
-            else {
-                try {
-                    res = polinoms[number1] - polinoms[number2];
-                    polinoms.push_back(res);
-                    polinom_count++;
-                    Update();
-                }
-                catch (...) {
-                    Update("what?");
-                }
+            catch (...) {
+                Update("Invalid input.");
             }
             break;
 
         case '3': // Умножение полиномов
-            cin >> number1 >> number2;
-            if (number1 >= polinoms.size() || number2 >= polinoms.size()) {
-                Update("what?");
+            try {
+                cout << "\033[33m" << "Enter the numbers of polinoms: " << "\033[0m";
+                cin >> number1;
+                cin >> number2;
+
+                if (number1 >= polinoms.size() || number2 >= polinoms.size()) {
+                    Update("Invalid polynomial numbers.");
+                    break;
+                }
+
+                res = polinoms[number1] * polinoms[number2];
+                polinoms.push_back(res);
+                polinom_count++;
+                Update();
             }
-            else {
-                try {
-                    res = polinoms[number1] * polinoms[number2];
-                    polinoms.push_back(res);
-                    polinom_count++;
-                    Update();
-                }
-                catch (...) {
-                    Update("what?");
-                }
+            catch (...) {
+                Update("Invalid input.");
             }
             break;
 
         case '4': // Умножение полинома на число
-            int number, c;
-            cin >> number >> c;
-            if (number >= polinoms.size()) {
-                Update("what?");
+            try {
+                int number;
+                double c;
+                cout << "\033[33m" << "Enter the polinom number: " << "\033[0m";
+                cin >> number;
+                cout << "\033[33m" << "Enter the constant: " << "\033[0m";
+                cin >> c;
+
+                if (number >= polinoms.size()) {
+                    Update("Invalid polynomial number.");
+                    break;
+                }
+
+                res = polinoms[number] * c;
+                polinoms.push_back(res);
+                polinom_count++;
+                Update();
             }
-            else {
-                try {
-                    res = polinoms[number] * c;
-                    polinoms.push_back(res);
-                    polinom_count++;
-                    Update();
-                }
-                catch (...) {
-                    Update("what?");
-                }
+            catch (...) {
+                Update("Invalid input.");
             }
             break;
 
-        case '5': // Ввод
+        case '5': // Умножение полинома на моном
+            try {
+                int number;
+                cout << "\033[33m" << "Enter the polinom number: " << "\033[0m";
+                cin >> number;
+
+                if (number >= polinoms.size()) {
+                    Update("Invalid polynomial number.");
+                    break;
+                }
+
+                double coeff;
+                int x, y, z;
+                cout << "\033[33m" << "Enter the monom (coeff x y z): " << "\033[0m";
+                cin >> coeff >> x >> y >> z;
+
+                Monom m(coeff, x, y, z);
+                res = polinoms[number] * m;
+                polinoms.push_back(res);
+                polinom_count++;
+                Update();
+            }
+            catch (...) {
+                Update("Invalid input.");
+            }
+            break;
+
+        case '6': // Ввод полинома
             try {
                 cin >> res;
                 polinoms.push_back(res);
@@ -106,12 +147,12 @@ void Visual::Run() {
                 Update();
             }
             catch (...) {
-                Update("what?");
+                Update("Invalid input.");
             }
             break;
 
         default:
-            Update("what?");
+            Update("Invalid operation.");
             break;
         }
     }
@@ -122,8 +163,8 @@ void Visual::Run() {
 
 void Visual::Update(string message) {
     system("cls");
-
-    cout << "Polinoms count: " << polinoms.size() << endl;
+    cout <<"\033[33m" << "General information:" << "\033[0m" << endl;
+    cout << endl << "Polinoms count: " << polinoms.size() << endl;
     cout << "Operations are done: " << polinom_count << endl;
 
     cout << endl << "Polinoms: "<< endl << endl;
@@ -134,11 +175,12 @@ void Visual::Update(string message) {
 
     // Меню операций
     cout << endl << "Choose operation:" << endl << endl;
-    cout << "      " <<"1: Polinoms add" << endl;
-    cout << "      " << "2: Polinoms subtract" << endl;
-    cout << "      " << "3: Polinoms multiply" << endl;
-    cout << "      " << "4: Polinoms multiply by const" << endl;
-    cout << "      " << "5: Polinoms input" << endl;
+    cout << "      " << "1: Polinoms ADD+" << endl;
+    cout << "      " << "2: Polinoms SUB-" << endl;
+    cout << "      " << "3: Polinoms MUL*" << endl;
+    cout << "      " << "4: Polinoms MUL*CONST" << endl;
+    cout << "      " << "5: Polinoms MIL*MONOM" << endl;
+    cout << "      " << "6: Polinoms INPUT" << endl;
     cout << "      " << "q: Quit" << endl << endl;
 
     if (message != "") {

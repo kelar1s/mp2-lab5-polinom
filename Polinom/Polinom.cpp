@@ -191,37 +191,13 @@ ostream& operator<<(ostream& out, Polinom& p)
     return out;
 }
 
-//istream& operator>>(istream& in, Polinom& p)
-//{
-//    string line;
-//    while (getline(in, line)) {
-//        if (line.empty()) continue;
-//
-//        istringstream iss(line);
-//        double tmpCoeff;
-//        iss >> tmpCoeff;
-//
-//        Monom tmpMonome;
-//        tmpMonome.coeff = tmpCoeff;
-//
-//        try {
-//            iss >> tmpMonome.x >> tmpMonome.y >> tmpMonome.z;
-//        }
-//        catch (exception& e) {
-//            throw runtime_error(e.what());
-//        }
-//        p.InsLast(tmpMonome);
-//    }
-//    return in;
-//}
-
 istream& operator>>(istream& in, Polinom& p) {
     p.Clear();
     string input;
     double coeff;
     int x, y, z;
 
-    cout << "\033[33mEnter monoms (coeff x y z). Enter 'done' to finish:\033[0m" << endl;
+    cout << "\033[33mEnter monoms (coeff x y z). Enter 'done' to finish!\033[0m" << endl;
 
     while (true) {
         cout << "\033[33mcoeff x y z: \033[0m";
