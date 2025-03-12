@@ -12,6 +12,14 @@ bool Monom::operator>(const Monom& oth)
     return !(this->operator<(oth));
 }
 
+bool Monom::operator==(const Monom& oth) const {
+    return this->x == oth.x && this->y == oth.y && this->z == oth.z;
+}
+
+bool Monom::operator!=(const Monom& oth) const {
+    return !(*this == oth);
+}
+
 ostream& operator<<(ostream& out, const Monom& oth)
 {
     out << oth.coeff;

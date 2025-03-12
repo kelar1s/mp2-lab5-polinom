@@ -241,7 +241,7 @@ bool TList<T>::IsEnd()
 template<class T>
 inline void TList<T>::GoNext()
 {
-    if (pCurr->next == nullptr) {
+    if (pCurr == nullptr) {
         throw - 1;
     }
     pPrev = pCurr;
@@ -280,7 +280,7 @@ template<class T>
 void TList<T>::DelCurr()
 {
     if (pCurr == nullptr) {
-        throw -1;
+        throw - 1;
     }
     else if (pCurr == pFirst) {
         DelFirst();
@@ -289,11 +289,11 @@ void TList<T>::DelCurr()
     else {
         TNode<T>* tmp = pCurr;
         pCurr = pCurr->next;
-        delete tmp;
         pPrev->next = pCurr;
         if (pCurr == nullptr) {
             pLast = pPrev;
         }
+        delete tmp;
         sz--;
     }
 }

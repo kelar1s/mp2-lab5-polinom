@@ -1,10 +1,11 @@
 #pragma once
-#include "/repos/mp2-lab5-polinom/Polinom/Polinom.h"
+#include "../Polinom/Polinom.h"
 #include <vector>
+
 
 class Visual {
 	vector<Polinom> polinoms;
-	int cnt = 0;
+	int polinom_count = 0;
 public:
 	Visual();
 	void Run();

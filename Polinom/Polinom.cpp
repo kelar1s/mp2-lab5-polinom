@@ -9,51 +9,10 @@ Polinom::Polinom(Monom* p, int size)
     }
 }
 
-//void Polinom::AddMonom(Monom m) //+=
-//{
-//    if (isEmpty()) {
-//        InsLast(m);
-//    }
-//    else {
-//        if (m > pFirst->val) {
-//            InsFirst(m);
-//        }
-//        if (m < pLast->val) {
-//            InsLast(m);
-//        }
-//        for (Reset(); !IsEnd(); GoNext()) {
-//            if (m > GetCurr() || m == GetCurr()) {
-//                if (m > GetCurr()) {
-//                    TNode<Monom>* nw = new TNode<Monom>(m);
-//                    nw->next = pCurr;
-//                    pPrev->next = nw;
-//                }
-//                else {
-//                    double res = GetCurr().coeff + m.coeff;
-//                    if (res != 0) {
-//                        GetCurr().coeff = res;
-//                    }
-//                    else {
-//                        if (pCurr == pFirst) {
-//                            DelFirst();
-//                            pCurr = pCurr->next;
-//                        }
-//                        else {
-//                            TNode<Monom>* tmp = pCurr;
-//                            pPrev->next = pCurr->next;
-//                            pCurr = pCurr->next;
-//                            delete tmp;
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
-
-void Polinom::AddMonom(Monom m)
-{
-    if (isEmpty()) InsLast(m);
+void Polinom::AddMonom(Monom m) {
+    if (isEmpty()) {
+        InsLast(m);
+    }
     else {
         if (pFirst->val < m) {
             InsFirst(m);
@@ -73,9 +32,13 @@ void Polinom::AddMonom(Monom m)
             }
             if (GetCurr() == m) {
                 double c = pCurr->val.coeff + m.coeff;
-                if (c != 0) pCurr->val.coeff = c;
+                if (c != 0) {
+                    pCurr->val.coeff = c;
+                }
                 else {
-                    if (pCurr == pFirst) DelFirst();
+                    if (pCurr == pFirst) {
+                        DelFirst();
+                    }
                     else if (pCurr == pLast) {
                         pPrev->next = nullptr;
                         pLast = pPrev;
@@ -95,38 +58,22 @@ void Polinom::AddMonom(Monom m)
     }
 }
 
-//bool Polinom::operator==(const Polinom& p) const
-//{
-//    if (this == &p) return true;
-//    if (sz != p.sz) return false;
-//    TNode<Monom>* tmp1 = pFirst;
-//    TNode<Monom>* tmp2 = p.pFirst;
-//    for (int i = 0; i < sz; i++) {
-//        if ((tmp1->val != tmp2->val) || (tmp1->val.coeff != tmp2->val.coeff))
-//            return false;
-//        tmp1 = tmp1->next;
-//        tmp2 = tmp2->next;
-//    }
-//    return true;
-//}
-
 bool Polinom::operator==(const Polinom& p) const {
-    if (this == &p) return true; // Если это один и тот же объект
-    if (sz != p.sz) return false; // Если размеры разные, списки не равны
+    if (this == &p) return true;
+    if (sz != p.sz) return false;
 
     TNode<Monom>* tmp1 = pFirst;
     TNode<Monom>* tmp2 = p.pFirst;
 
     while (tmp1 != nullptr && tmp2 != nullptr) {
-        if (tmp1->val != tmp2->val) { // Используем оператор != для Monom
+        if (tmp1->val != tmp2->val) {
             return false;
         }
         tmp1 = tmp1->next;
         tmp2 = tmp2->next;
     }
 
-    // Если один из списков закончился раньше другого
-    return (tmp1 == nullptr && tmp2 == nullptr);
+    return tmp1 == nullptr && tmp2 == nullptr;
 }
 
 Polinom& Polinom::operator=(const Polinom& p)
@@ -239,31 +186,59 @@ ostream& operator<<(ostream& out, Polinom& p)
     out << p.GetCurr();
     p.GoNext();
     for (; !p.IsEnd(); p.GoNext()) {
-        out << (p.GetCurr().coeff >= 1 ? " +" : " ") << p.GetCurr();
+        out << (p.GetCurr().coeff >= 1 ? " + " : " ") << p.GetCurr();
     }
     return out;
 }
 
-istream& operator>>(istream& in, Polinom& p)
-{
-    string line;
-    while (getline(in, line)) {
-        if (line.empty()) continue;
+//istream& operator>>(istream& in, Polinom& p)
+//{
+//    string line;
+//    while (getline(in, line)) {
+//        if (line.empty()) continue;
+//
+//        istringstream iss(line);
+//        double tmpCoeff;
+//        iss >> tmpCoeff;
+//
+//        Monom tmpMonome;
+//        tmpMonome.coeff = tmpCoeff;
+//
+//        try {
+//            iss >> tmpMonome.x >> tmpMonome.y >> tmpMonome.z;
+//        }
+//        catch (exception& e) {
+//            throw runtime_error(e.what());
+//        }
+//        p.InsLast(tmpMonome);
+//    }
+//    return in;
+//}
 
-        istringstream iss(line);
-        double tmpCoeff;
-        iss >> tmpCoeff;
+istream& operator>>(istream& in, Polinom& p) {
+    p.Clear();
+    string input;
+    double coeff;
+    int x, y, z;
 
-        Monom tmpMonome;
-        tmpMonome.coeff = tmpCoeff;
+    cout << "\033[33mEnter monoms (coeff x y z). Enter 'done' to finish:\033[0m" << endl;
+
+    while (true) {
+        cout << "\033[33mcoeff x y z: \033[0m";
+        in >> input;
+
+        if (input == "done") break;
 
         try {
-            iss >> tmpMonome.x >> tmpMonome.y >> tmpMonome.z;
+            coeff = stod(input);
         }
-        catch (exception& e) {
-            throw runtime_error(e.what());
+        catch (...) {
+            cout << "\033[31mInvalid input. Please enter a number or 'done'.\033[0m" << endl;
+            continue;
         }
-        p.InsLast(tmpMonome);
+        in >> x >> y >> z;
+        Monom m(coeff, x, y, z);
+        p.InsLast(m);
     }
     return in;
 }
