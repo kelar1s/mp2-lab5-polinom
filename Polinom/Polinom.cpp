@@ -4,7 +4,7 @@ Polinom::Polinom(Monom* p, int size)
 {
     int i = 0;
     while (i < size) {
-        this->InsLast(p[i]);
+        this->AddMonom(p[i]);
         i++;
     }
 }
@@ -214,7 +214,7 @@ istream& operator>>(istream& in, Polinom& p) {
         }
         in >> x >> y >> z;
         Monom m(coeff, x, y, z);
-        p.InsLast(m);
+        p.AddMonom(m);
     }
     return in;
 }

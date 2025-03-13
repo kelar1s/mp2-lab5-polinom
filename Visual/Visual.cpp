@@ -9,12 +9,16 @@ Visual::Visual() {
 	Monom m1[3] = { Monom(9, 9, 9, 9), Monom(8, 8, 8, 8), Monom(7, 7, 7, 7) };
 	Monom m2[3] = { Monom(10, 10, 10, 10), Monom(-9, 9, 9, 9), Monom(5, 7, 7, 7) };
 	Monom m3[1] = { Monom(2, 2, 2, 2) };
+    Monom m4[2] = { Monom(1, 2, 1, 1), Monom(1, 1, 1, 2) };
+    Monom m5[2] = { Monom(1, 2, 2, 1), Monom(1, 1, 2, 2) };
 
-	Polinom p1(m1, 3), p2(m2, 3), p3(m3, 1);
+	Polinom p1(m1, 3), p2(m2, 3), p3(m3, 1), p4(m4, 2), p5(m5, 2);
 
 	polinoms.push_back(p1);
 	polinoms.push_back(p2);
 	polinoms.push_back(p3);
+    polinoms.push_back(p4);
+    polinoms.push_back(p5);
 }
 
 void Visual::Run() {
@@ -156,7 +160,7 @@ void Visual::Run() {
             break;
         }
     }
-    Update("Quitting...");
+    Update("Wait a second...");
     this_thread::sleep_for(chrono::seconds(1));
     exit(0);
 }
