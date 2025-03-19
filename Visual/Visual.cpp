@@ -9,16 +9,18 @@ Visual::Visual() {
 	Monom m1[3] = { Monom(9, 9, 9, 9), Monom(8, 8, 8, 8), Monom(7, 7, 7, 7) };
 	Monom m2[3] = { Monom(10, 10, 10, 10), Monom(-9, 9, 9, 9), Monom(5, 7, 7, 7) };
 	Monom m3[1] = { Monom(2, 2, 2, 2) };
-    Monom m4[2] = { Monom(1, 2, 1, 1), Monom(1, 1, 1, 2) };
-    Monom m5[2] = { Monom(1, 2, 2, 1), Monom(1, 1, 2, 2) };
+    Monom m4[2] = { Monom(2, 3, 4, 2), Monom(-2, 5, 6, 3) };
+    Monom m5[2] = { Monom(3, 4, 3, 5), Monom(3, 2, 1, 4) };
+    Monom m6[2] = { Monom(-3, 1, 0, 3), Monom(6, 3, 2, 4) };
 
-	Polinom p1(m1, 3), p2(m2, 3), p3(m3, 1), p4(m4, 2), p5(m5, 2);
+	Polinom p1(m1, 3), p2(m2, 3), p3(m3, 1), p4(m4, 2), p5(m5, 2), p6(m6, 2);
 
 	polinoms.push_back(p1);
 	polinoms.push_back(p2);
 	polinoms.push_back(p3);
     polinoms.push_back(p4);
     polinoms.push_back(p5);
+    polinoms.push_back(p6);
 }
 
 void Visual::Run() {
@@ -42,7 +44,7 @@ void Visual::Run() {
 
                 res = polinoms[number1] + polinoms[number2];
                 polinoms.push_back(res);
-                polinom_count++;
+                operations_count++;
                 Update();
             }
             catch (...) {
@@ -63,7 +65,7 @@ void Visual::Run() {
 
                 res = polinoms[number1] - polinoms[number2];
                 polinoms.push_back(res);
-                polinom_count++;
+                operations_count++;
                 Update();
             }
             catch (...) {
@@ -84,7 +86,7 @@ void Visual::Run() {
 
                 res = polinoms[number1] * polinoms[number2];
                 polinoms.push_back(res);
-                polinom_count++;
+                operations_count++;
                 Update();
             }
             catch (...) {
@@ -108,7 +110,7 @@ void Visual::Run() {
 
                 res = polinoms[number] * c;
                 polinoms.push_back(res);
-                polinom_count++;
+                operations_count++;
                 Update();
             }
             catch (...) {
@@ -135,7 +137,7 @@ void Visual::Run() {
                 Monom m(coeff, x, y, z);
                 res = polinoms[number] * m;
                 polinoms.push_back(res);
-                polinom_count++;
+                operations_count++;
                 Update();
             }
             catch (...) {
@@ -147,14 +149,31 @@ void Visual::Run() {
             try {
                 cin >> res;
                 polinoms.push_back(res);
-                polinom_count++;
+                operations_count++;
                 Update();
             }
             catch (...) {
                 Update("Invalid input.");
             }
             break;
-
+        case 'l':
+            try {
+                Clear();
+                Update("Polinoms were deleted!");
+            }
+            catch (...) {
+                Update("Invalid input.");
+            }
+            break;
+        case 'r':
+            try {
+                Restart();
+                Update("Restarted!");
+            }
+            catch (...) {
+                Update("Invalid input.");
+            }
+            break;
         default:
             Update("Invalid operation.");
             break;
@@ -169,7 +188,7 @@ void Visual::Update(string message) {
     system("cls");
     cout <<"\033[33m" << "General information:" << "\033[0m" << endl;
     cout << endl << "Polinoms count: " << polinoms.size() << endl;
-    cout << "Operations are done: " << polinom_count << endl;
+    cout << "Operations are done: " << operations_count << endl;
 
     cout << endl << "Polinoms: "<< endl << endl;
 
@@ -183,7 +202,7 @@ void Visual::Update(string message) {
     cout << "      " << "2: Polinoms SUB-" << endl;
     cout << "      " << "3: Polinoms MUL*" << endl;
     cout << "      " << "4: Polinoms MUL*CONST" << endl;
-    cout << "      " << "5: Polinoms MIL*MONOM" << endl;
+    cout << "      " << "5: Polinoms MUL*MONOM" << endl;
     cout << "      " << "6: Polinoms INPUT" << endl;
     cout << "      " << "q: Quit" << endl << endl;
 

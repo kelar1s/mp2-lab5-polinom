@@ -154,6 +154,15 @@ TEST(Polinom, Polinom_minus_polinom_with_delete_middle_monom) {
 	EXPECT_EQ(p1p2, corr_res);
 }
 
+TEST(Polinom, Polinom_minus_polinom_with_adding_and_deleting_monoms) {
+	Monom m1[3] = { Monom(5, 5, 5, 5),Monom(2, 2, 2, 2), Monom(1, 1, 1, 1)};
+	Monom m2[2] = { Monom(-5, 5, 5, 5), Monom(2, 2, 2, 2) };
+	Monom m3[2] = { Monom(5, 5, 5, 5), Monom(1, 1, 1, 1)};
+	Polinom p1(m1, 3), p2(m2, 2), p1p2, corr_res(m3, 2);
+	p1p2 = p1 - p2;
+	EXPECT_EQ(p1p2, corr_res);
+}
+
 //MULT
 
 TEST(Polinom, Mult_two_polinoms) {
